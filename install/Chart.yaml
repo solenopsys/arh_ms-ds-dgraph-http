@@ -1,0 +1,8 @@
+apiVersion: v2
+name: dgraph
+version: 0.1.0
+description: Dgraph data service
+icon: "http://alexstorm.solenopsys.org/apps/assets/dgraph.svg"
+
+
+

@@ -55,7 +55,5 @@ func processingFunction() func(message []byte, streamId uint32, serviceId uint16
 }
 
 func main() {
-
 	zmq_connector.StartServer(processingFunction())
-
 }

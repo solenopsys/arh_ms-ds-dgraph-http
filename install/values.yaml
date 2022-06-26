@@ -1,0 +1,31 @@
+replicasCount: 1
+fullName: "dgraph"
+selectorLabel: "dgraph"
+
+service:
+  nodePort: 30080
+  zmqPort: 9999
+
+storage:
+  volumeName: datadir
+  storageSize: 5Gi
+  accessModes: "ReadWriteOnce"
+
+containers:
+  dgraph_zero:
+    name: zero
+    grpcPort: 5080
+    httpPort: 6080
+    image: dgraph/standalone:v20.11.2
+    pullPolicy: IfNotPresent
+  dgraph_alpha:
+    name: alpha
+    grpcPort: 9080
+    httpPort: 8080
+    image: dgraph/standalone:v20.11.2
+    pullPolicy: IfNotPresent
+  hs_adapter:
+    name: hs-dgraph
+    image: registry.local/hs-dgraph
+    pullPolicy: Always
+
