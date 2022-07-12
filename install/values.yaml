@@ -8,7 +8,7 @@ service:
 
 storage:
   volumeName: datadir
-  storageSize: 5Gi
+  storageSize: 1Gi
   accessModes: "ReadWriteOnce"
 
 containers:
@@ -16,13 +16,13 @@ containers:
     name: zero
     grpcPort: 5080
     httpPort: 6080
-    image: dgraph/standalone:v20.11.2
+    image: registry.local/dgraph # dgraph/standalone:v20.11.2
     pullPolicy: IfNotPresent
   dgraph_alpha:
     name: alpha
     grpcPort: 9080
     httpPort: 8080
-    image: dgraph/standalone:v20.11.2
+    image: registry.local/dgraph # dgraph/standalone:v20.11.2
     pullPolicy: IfNotPresent
   hs_adapter:
     name: hs-dgraph

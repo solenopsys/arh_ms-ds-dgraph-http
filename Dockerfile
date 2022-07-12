@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.18.2-alpine3.15
+FROM --platform=$BUILDPLATFORM  golang:1.18.3-buster
+
+ARG TARGETARCH
 
 WORKDIR /app/main/zmq_connector
 
@@ -14,7 +16,7 @@ COPY go.sum ./
 COPY *.go ./
 RUN go mod download
 
-RUN go build  -o /go-binary
+RUN  GOOS=linux GOARCH=$TARGETARCH go build  -o /go-binary
 
 CMD [ "/go-binary" ]
 

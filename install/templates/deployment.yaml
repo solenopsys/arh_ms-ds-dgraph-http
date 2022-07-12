@@ -67,7 +67,7 @@ spec:
             - name: "dgraph.Host"
               value: "localhost"
             - name: "dgraph.Port"
-              value: {{ .Values.containers.dgraph_alpha.httpPort }}
+              value: "{{ .Values.containers.dgraph_alpha.httpPort }}"
       terminationGracePeriodSeconds: 60
       volumes:
         - name: {{ .Values.storage.volumeName }}
