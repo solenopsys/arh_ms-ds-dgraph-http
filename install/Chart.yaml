@@ -1,8 +1,11 @@
 apiVersion: v2
-name: dgraph
+name: alexstorm-hsm-dgraph
 version: 0.1.0
-description: Dgraph data service
-icon: "http://alexstorm.solenopsys.org/apps/assets/dgraph.svg"
-
-
-
+description: Dgraph data hs adapter
+icon: "http://alexstorm.solenopsys.org/apps/assets/alexstorm-hsm-dgraph.svg"
+#dependencies:
+#  - name: "solenopsys-ds-dgraph"
+#    version: "0.1.0"
+#    repository: "http://helm.alexstorm.solenopsys.org"
+#
+#

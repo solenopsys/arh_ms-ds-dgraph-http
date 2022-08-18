@@ -1,31 +1,16 @@
 replicasCount: 1
-fullName: "dgraph"
-selectorLabel: "dgraph"
+fullName: "alexstorm-hsm-dgraph"
+selectorLabel: "alexstorm-hsm-dgraph"
 
 service:
   nodePort: 30080
   zmqPort: 9999
-
-storage:
-  volumeName: datadir
-  storageSize: 1Gi
-  accessModes: "ReadWriteOnce"
+  httpPort: 8080
 
 containers:
-  dgraph_zero:
-    name: zero
-    grpcPort: 5080
-    httpPort: 6080
-    image: registry.local/dgraph # dgraph/standalone:v20.11.2
-    pullPolicy: IfNotPresent
-  dgraph_alpha:
-    name: alpha
-    grpcPort: 9080
-    httpPort: 8080
-    image: registry.local/dgraph # dgraph/standalone:v20.11.2
-    pullPolicy: IfNotPresent
   hs_adapter:
     name: hs-dgraph
-    image: registry.local/hs-dgraph
+    image: registry.alexstorm.solenopsys.org/alexstorm-hsm-dgraph
     pullPolicy: Always
+
 
