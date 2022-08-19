@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -16,13 +17,13 @@ type FuncParam struct {
 	contentType string
 }
 
-func processingFunction() func(message []byte, streamId uint32, serviceId uint16, functionId uint16) []byte {
+func processingFunction() func(message []byte, functionId uint8) []byte {
 	println("START CLIENT")
 
 	client := http.Client{
 		Timeout: 5 * time.Second,
 	}
-	var functions = make(map[uint16]*FuncParam)
+	var functions = make(map[uint8]*FuncParam)
 	functions[1] = &FuncParam{uri: "/query?timeout=20s", contentType: "application/dql"}
 	functions[2] = &FuncParam{uri: "/mutate?commitNow=true", contentType: "application/rdf"}
 
@@ -30,7 +31,7 @@ func processingFunction() func(message []byte, streamId uint32, serviceId uint16
 	port := os.Getenv("dgraph.Port")
 	path := "http://" + host + ":" + port
 
-	return func(message []byte, streamId uint32, serviceId uint16, functionId uint16) []byte {
+	return func(message []byte, functionId uint8) []byte {
 		fmt.Println("")
 		fmt.Println(string(message))
 		conf := functions[functionId]
@@ -54,6 +55,35 @@ func processingFunction() func(message []byte, streamId uint32, serviceId uint16
 	}
 }
 
+func StreamProcessor(
+	context context.Context,
+	stream *zmq_connector.StreamConfig,
+) {
+
+	f := processingFunction()
+
+	for {
+		messageWr := <-stream.Input
+		resBytes := f(messageWr.Body, messageWr.Function)
+		stream.Output <- &zmq_connector.HsMassage{0, messageWr.Function, resBytes}
+	}
+
+}
+
 func main() {
-	zmq_connector.StartServer(processingFunction())
+	socketUrl := os.Getenv("zmq.SocketUrl")
+
+	streams := &zmq_connector.StreamsHolder{
+		Streams:        make(map[uint32]*zmq_connector.StreamConfig),
+		Input:          make(chan *zmq_connector.SocketMassage, 256),
+		Output:         make(chan *zmq_connector.SocketMassage, 256),
+		MessageHandler: StreamProcessor,
+	}
+
+	z := &zmq_connector.HsSever{
+		SocketUrl: socketUrl,
+		Streams:   streams,
+	}
+
+	z.StartServer()
 }
