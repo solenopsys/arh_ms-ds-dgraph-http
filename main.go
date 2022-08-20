@@ -56,8 +56,8 @@ func processingFunction() func(message []byte, functionId uint8) []byte {
 }
 
 func StreamProcessor(
-	context context.Context,
 	stream *zmq_connector.StreamConfig,
+	cancel context.CancelFunc,
 ) {
 
 	f := processingFunction()
@@ -66,6 +66,8 @@ func StreamProcessor(
 		messageWr := <-stream.Input
 		resBytes := f(messageWr.Body, messageWr.Function)
 		stream.Output <- &zmq_connector.HsMassage{0, messageWr.Function, resBytes}
+
+		//todo cancel
 	}
 
 }

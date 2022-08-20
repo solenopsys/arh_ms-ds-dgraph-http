@@ -17,8 +17,8 @@ ARCHS="linux/amd64,linux/arm64"
 VER=0.1.0
 
 
-helm_build_push
-#build_push
+#helm_build_push
+build_push
 
 
 
