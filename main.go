@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"context"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -17,7 +16,7 @@ type FuncParam struct {
 	contentType string
 }
 
-func processingFunction() func(message []byte, functionId uint8) []byte {
+func pf() func(message []byte, functionId uint8) []byte {
 	println("START CLIENT")
 
 	client := http.Client{
@@ -55,37 +54,7 @@ func processingFunction() func(message []byte, functionId uint8) []byte {
 	}
 }
 
-func StreamProcessor(
-	stream *zmq_connector.StreamConfig,
-	cancel context.CancelFunc,
-) {
-
-	f := processingFunction()
-
-	for {
-		messageWr := <-stream.Input
-		resBytes := f(messageWr.Body, messageWr.Function)
-		stream.Output <- &zmq_connector.HsMassage{0, messageWr.Function, resBytes}
-
-		//todo cancel
-	}
-
-}
-
 func main() {
-	socketUrl := os.Getenv("zmq.SocketUrl")
-
-	streams := &zmq_connector.StreamsHolder{
-		Streams:        make(map[uint32]*zmq_connector.StreamConfig),
-		Input:          make(chan *zmq_connector.SocketMassage, 256),
-		Output:         make(chan *zmq_connector.SocketMassage, 256),
-		MessageHandler: StreamProcessor,
-	}
-
-	z := &zmq_connector.HsSever{
-		SocketUrl: socketUrl,
-		Streams:   streams,
-	}
-
-	z.StartServer()
+	template := zmq_connector.HsTemplate{Pf: pf()}
+	template.Init()
 }
