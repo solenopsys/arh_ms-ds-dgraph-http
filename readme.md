@@ -2,6 +2,11 @@
 ## pull submodules
 git submodule update --init --recursive
 
+**or**
+
+git submodule update --force --recursive --init --remote
+
+
 ## Docker
 docker build . -t registry.local/hs-dgraph:latest
 docker push registry.local/hs-dgraph:latest
