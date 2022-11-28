@@ -55,6 +55,5 @@ func pf() func(message []byte, functionId uint8) []byte {
 }
 
 func main() {
-	template := zmq_connector.HsTemplate{Pf: pf()}
-	template.Init()
+	zmq_connector.StartServer(processingFunction())
 }
