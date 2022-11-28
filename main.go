@@ -16,7 +16,7 @@ type FuncParam struct {
 	contentType string
 }
 
-func pf() func(message []byte, functionId uint8) []byte {
+func processingFunction() func(message []byte, functionId uint8) []byte {
 	println("START CLIENT")
 
 	client := http.Client{
