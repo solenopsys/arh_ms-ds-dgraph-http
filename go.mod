@@ -2,7 +2,7 @@ module solenopsys.org/zmq_dgraph
 
 go 1.17
 
-replace solenopsys.org/zmq_connector => ./zmq_connector
+replace solenopsys.org/zmq_connector => ./sc-bl-zmq-connector
 
 require solenopsys.org/zmq_connector v0.0.0
 
