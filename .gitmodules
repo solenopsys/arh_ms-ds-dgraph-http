@@ -1,3 +1,0 @@
-[submodule "zmq_connector"]
-	path = sc-bl-zmq-connector
-	url = https://github.com/solenopsys/sc-bl-zmq-connector

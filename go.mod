@@ -2,9 +2,7 @@ module solenopsys.org/zmq_dgraph
 
 go 1.17
 
-replace solenopsys.org/zmq_connector => ./sc-bl-zmq-connector
-
-require solenopsys.org/zmq_connector v0.0.0
+require github.com/solenopsys/sc-bl-zmq-connector v1.0.2
 
 require (
 	github.com/go-logr/logr v1.2.0 // indirect

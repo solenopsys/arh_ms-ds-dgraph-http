@@ -3,11 +3,11 @@ package main
 import (
 	"bytes"
 	"fmt"
+	zmq_connector "github.com/solenopsys/sc-bl-zmq-connector"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"solenopsys.org/zmq_connector"
 	"time"
 )
 

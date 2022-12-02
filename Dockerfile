@@ -4,12 +4,6 @@ FROM --platform=$BUILDPLATFORM  golang:1.19-buster
 
 ARG TARGETARCH
 
-WORKDIR /app/main/zmq_connector
-
-COPY zmq_connector/*.go ./
-COPY zmq_connector/go.mod ./
-RUN go mod download
-
 WORKDIR /app/main
 COPY go.mod ./
 COPY go.sum ./
