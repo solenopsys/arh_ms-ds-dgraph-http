@@ -10,7 +10,7 @@ service:
 containers:
   hs_adapter:
     name: hs-dgraph
-    image: registry.alexstorm.solenopsys.org/alexstorm-hsm-dgraph
+    image: registry.klogsolenopsys.org/alexstorm-hsm-dgraph
     pullPolicy: Always
 
 
