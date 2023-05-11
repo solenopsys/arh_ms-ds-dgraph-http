@@ -2,11 +2,11 @@ apiVersion: v2
 name: alexstorm-hsm-dgraph
 version: 0.1.0
 description: Dgraph data hs adapter
-icon: "http://klogsolenopsys.org/apps/assets/alexstorm-hsm-dgraph.svg"
+icon: "http://solenopsys.org/apps/assets/alexstorm-hsm-dgraph.svg"
 appVersion: 1.0.0
 #dependencies:
 #  - name: "solenopsys-ds-dgraph"
 #    version: "0.1.0"
-#    repository: "http://helm.klogsolenopsys.org"
+#    repository: "http://helm.solenopsys.org"
 #
 #
